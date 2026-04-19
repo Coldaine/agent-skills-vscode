@@ -66,7 +66,7 @@ Reload the window. The 21 skills appear in chat as `/agent-skills:{skill-name}` 
 This conversion is faithful where VS Code supports the feature, and explicit where it doesn't. See [`docs/MIGRATION.md`](docs/MIGRATION.md) for the full list. Summary:
 
 - **Manifest moved** from `.claude-plugin/plugin.json` to `.github/plugin/plugin.json` (Copilot format)
-- **Agent personas** rewritten from Claude persona `.md` to VS Code `.agent.md` schema (tools, model preference)
+- **Agent personas** rewritten from Claude persona `.md` to VS Code `.agent.md` schema. Same prompts; we add a `model:` priority list so VS Code picks a reasonable reasoning model. Tool access is left unrestricted — these are full agents, not narrow reviewers, so they inherit whatever tools Copilot has in the active context.
 - **Hooks dropped**: the 5 shell hook scripts (`SessionStart`, `simplify-ignore` tool interceptors, `sdd-cache` WebFetch cache) have no Copilot equivalent — VS Code plugins can't intercept tool calls at that layer. The meta-skill `using-agent-skills` (which was injected via `SessionStart`) is now a regular skill users can invoke explicitly.
 - **`idea-refine` script dropped**: the bash init script that created `docs/ideas/` is replaced by inline instructions in the SKILL.md body
 - **Slash commands** (`/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/code-simplify`): not separately registered. Instead, the corresponding skills are marked `user-invocable: true` and appear in chat as `/agent-skills:{skill-name}`.
