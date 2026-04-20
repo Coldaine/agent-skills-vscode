@@ -20,5 +20,6 @@
   "homepage": "https://github.com/Coldaine/agent-skills-vscode",
   "repository": "https://github.com/Coldaine/agent-skills-vscode",
   "skills": "skills",
-  "agents": "agents"
+  "agents": "agents",
+  "hooks": "hooks.json"
 }

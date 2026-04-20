@@ -2,7 +2,7 @@
 
 ## Summary
 
-All 21 skills and 4 reference checklists from [`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills) were ported intact. The plugin manifest was moved and reshaped for the Copilot format, and the 3 custom agents were rewritten into Copilot's `.agent.md` schema. Five shell hooks and seven explicit slash commands were **dropped** — VS Code Copilot has no equivalent plugin-level mechanisms for those features.
+All 21 skills and 4 reference checklists from [`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills) were ported intact. The plugin manifest was moved and reshaped for the Copilot format, and the 3 custom agents were rewritten into Copilot's `.agent.md` schema. Of the five shell hooks, **three were ported** (`SessionStart`, `sdd-cache-pre`, `sdd-cache-post`) and two were dropped (`simplify-ignore` — blocked by tool-name API differences). Seven explicit slash commands were also dropped — VS Code Copilot has no plugin-level slash-command registration.
 
 ## Feature Mapping Table
 
@@ -12,7 +12,10 @@ All 21 skills and 4 reference checklists from [`addyosmani/agent-skills`](https:
 | `skills/*/SKILL.md` (21) | `skills/*/SKILL.md` | Kept (frontmatter renormalised) | Same shape and filename; Copilot's `SKILL.md` spec is compatible |
 | `agents/*.md` (3) | `agents/*.agent.md` | Rewritten | Copilot's `.agent.md` schema differs from Claude Code's agent file format |
 | `references/*.md` (4) | `references/*.md` | Kept as-is | Pure markdown docs, no host coupling |
-| `hooks/hooks.json` + 5 scripts | — | **Dropped** | No plugin-level hook layer in Copilot |
+| `hooks/session-start.sh` | `scripts/session-start.sh` + `hooks.json` | **Ported** | VS Code supports `SessionStart`; JSON output shape updated |
+| `hooks/sdd-cache-pre.sh` | `scripts/sdd-cache-pre.sh` + `hooks.json` | **Ported** | `PreToolUse` supported; adapted `${CLAUDE_PROJECT_DIR}` → `cwd` from stdin |
+| `hooks/sdd-cache-post.sh` | `scripts/sdd-cache-post.sh` + `hooks.json` | **Ported** | `PostToolUse` supported; same adaptation |
+| `hooks/simplify-ignore.sh` + test | — | **Dropped** | VS Code tool names (`editFiles`, `create_file`) differ from Claude Code's (`Edit`, `Write`); property casing also differs (`.tool_input.filePath` vs `.file_path`). Blocked pending runtime verification of actual VS Code tool names. |
 | `.claude/commands/*.md` (7) | — | **Dropped** | No plugin-level slash-command registration in Copilot |
 | `skills/idea-refine/scripts/idea-refine.sh` | Skill body instructions | Rewritten inline | Script logic now described in the skill so the model performs it directly |
 | `CLAUDE.md` session hook auto-load | — | Dropped (auto-injection) | `using-agent-skills` is still bundled; user invokes it manually |
@@ -36,9 +39,7 @@ All 21 skills and 4 reference checklists from [`addyosmani/agent-skills`](https:
 
 **What it did.** Read `skills/using-agent-skills/SKILL.md` and emitted a JSON `{priority: "IMPORTANT", message: ...}` payload so Claude Code prepended the meta-skill to every session's system context.
 
-**Why dropped.** Copilot's plugin format has no `SessionStart` hook. The only hook event Copilot documents is `PostToolUse`, which is **Preview**, **agent-scoped** (declared in one `.agent.md`'s frontmatter), and cannot be registered at the plugin level to fire for every session.
-
-**Workaround.** Invoke `/agent-skills:using-agent-skills` at session start, or add a reminder in `.github/copilot-instructions.md`.
+**Status: PORTED.** VS Code agent plugins support `SessionStart`. The hook now emits a short activation note in VS Code's required `{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"..."}}` shape. The original Claude Code shape `{"priority":"IMPORTANT","message":"..."}` was updated accordingly. The note directs the model to invoke `/agent-skills:using-agent-skills` for the full discovery flowchart rather than injecting the full skill content into every session (too noisy). See `scripts/session-start.sh`.
 
 ### 2. `simplify-ignore` tool-interceptor hooks (`simplify-ignore.sh`, `simplify-ignore-test.sh`, `SIMPLIFY-IGNORE.md`)
 
