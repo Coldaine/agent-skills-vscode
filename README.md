@@ -16,26 +16,70 @@ The 21 skills encode the workflows, quality gates, and best practices senior eng
 
 ## Install
 
-**Option A — from GitHub** (once published):
+### Option A — Install from source (available now)
 
-```
-Chat: Install Plugin From Source
-# paste the repo URL
-```
+1. Open VS Code
+2. Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
+3. Run **Chat: Install Plugin From Source**
+4. Paste: `https://github.com/Coldaine/agent-skills-vscode`
+5. VS Code clones and installs the plugin. Reload when prompted.
 
-**Option B — local development**:
+> **Requires:** VS Code 1.99+ and a GitHub Copilot subscription. Enable agent plugins with `"chat.plugins.enabled": true` in your settings if they're not already on.
 
-Clone this repo and add its path to VS Code settings:
+### Option B — Local folder (dev/offline)
 
-```json
-// settings.json
-"chat.pluginLocations": {
-  "/absolute/path/to/agent-plugins-vscode": true
-},
-"chat.plugins.enabled": true
-```
+Clone the repo and register the directory:
 
-Reload the window. The 21 skills appear in chat as `/agent-skills:{skill-name}` and auto-load when the model judges them relevant. The 3 agents appear in the agents dropdown.
+    ```json
+    // settings.json
+    "chat.plugins.enabled": true,
+    "chat.pluginLocations": {
+      "/absolute/path/to/agent-skills-vscode": true
+    }
+    ```
+
+Reload the window after adding the setting.
+
+### Option C — Workspace recommendation (share with your team)
+
+Add to `.github/copilot/settings.json` in your repo to recommend the plugin to team members:
+
+    ```json
+    {
+      "extraKnownMarketplaces": {
+        "coldaine-plugins": {
+          "source": {
+            "source": "github",
+            "repo": "Coldaine/agent-skills-vscode"
+          }
+        }
+      },
+      "enabledPlugins": {
+        "agent-skills@coldaine-plugins": true
+      }
+    }
+    ```
+
+### After install — what you get
+
+Once installed, the plugin's 21 skills appear when you type `/agent-skills:` in chat (autocomplete shows all skills). The 3 custom agents appear in the **Agents** dropdown:
+
+| Invoke | What it does |
+|---|---|
+| `/agent-skills:spec-driven-development` | Write a PRD before coding |
+| `/agent-skills:planning-and-task-breakdown` | Break work into ordered tasks |
+| `/agent-skills:test-driven-development` | Red-Green-Refactor, test pyramid |
+| `/agent-skills:code-review-and-quality` | Five-axis pre-merge review |
+| `/agent-skills:security-and-hardening` | OWASP Top 10, secrets, boundaries |
+| `/agent-skills:performance-optimization` | Core Web Vitals, profiling |
+| `/agent-skills:incremental-implementation` | Thin vertical slices |
+| `/agent-skills:api-and-interface-design` | Contract-first, stable interfaces |
+| `/agent-skills:debugging-and-error-recovery` | Five-step triage |
+| `/agent-skills:shipping-and-launch` | Pre-launch checklist, staged rollout |
+| _(+ 11 more)_ | See `skills/` for the full list |
+| **@code-reviewer** | Staff-engineer code review |
+| **@security-auditor** | Vulnerability detection, OWASP |
+| **@test-engineer** | TDD, test strategy, prove-it pattern |
 
 ## What's in this plugin
 

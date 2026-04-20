@@ -17,6 +17,8 @@
     "copilot",
     "agent-skills"
   ],
-  "skills": "./skills",
-  "agents": "./agents"
+  "homepage": "https://github.com/Coldaine/agent-skills-vscode",
+  "repository": "https://github.com/Coldaine/agent-skills-vscode",
+  "skills": ["./skills"],
+  "agents": ["./agents"]
 }
