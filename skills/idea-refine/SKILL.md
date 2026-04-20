@@ -1,201 +1,200 @@
 ---
 name: idea-refine
-description: Refines ideas into implementable plans. Use when exploring a vague concept that needs shaping. Use when evaluating feasibility before committing resources. Use to identify hidden assumptions, risks, and the minimum viable version of an idea.
+description: Refines ideas iteratively. Refine ideas through structured divergent and convergent thinking. Use "idea-refine" or "ideate" to trigger.
 user-invocable: true
 ---
 
-# Idea Refinement
+> **Companion files:** This skill ships with three reference files in the same directory. At the start of each phase, read the relevant file:
+> - **Phase 1 (Expand):** read [`frameworks.md`](./frameworks.md) for ideation lenses (SCAMPER, HMW, First Principles, JTBD, etc.)
+> - **Phase 2 (Evaluate):** read [`refinement-criteria.md`](./refinement-criteria.md) for the evaluation rubric
+> - **Phase 3 (Sharpen):** read [`examples.md`](./examples.md) for calibration on what a good one-pager looks like
 
-## Overview
+# Idea Refine
 
-Idea refinement is the discipline of taking a vague concept and developing it into something concrete enough to decide whether and how to act on it. It sits between inspiration and execution — a phase where ideas are stress-tested, assumptions are surfaced, and the shape of the possible becomes clearer.
+Refines raw ideas into sharp, actionable concepts worth building through structured divergent and convergent thinking.
 
-Good refinement neither kills ideas with premature skepticism nor rushes them into execution before they're ready. It's a productive middle ground: rigorous enough to find real problems, generative enough to find real solutions.
+## How It Works
 
-## When to Use
+1.  **Understand & Expand (Divergent):** Restate the idea, ask sharpening questions, and generate variations.
+2.  **Evaluate & Converge:** Cluster ideas, stress-test them, and surface hidden assumptions.
+3.  **Sharpen & Ship:** Produce a concrete markdown one-pager moving work forward.
 
-- An idea sounds good but nobody can quite articulate what it is
-- A concept is compelling but you're not sure if it's feasible
-- Before committing resources to something that's still vague
-- When multiple versions of an idea exist and you need to choose
-- When the same idea keeps coming up but never gets traction
-- Before writing a spec, proposal, or business case
+## Usage
 
-## Core Principles
+This skill is primarily an interactive dialogue. Invoke it with an idea, and the agent will guide you through the process.
 
-### Separate Exploration from Evaluation
+**Trigger Phrases:**
+- "Help me refine this idea"
+- "Ideate on [concept]"
+- "Stress-test my plan"
 
-The fastest way to kill an idea is to evaluate it while you're still exploring it. When someone proposes something new, the first response should be curiosity, not judgment. Spend time understanding what the idea is trying to accomplish before assessing whether it works.
+## Setting Up the Ideas Directory
 
-This doesn't mean suspending critical thinking forever — it means sequencing it. First: understand. Second: evaluate.
+Before saving output for the first time, set up the ideas directory manually:
 
-### Name the Problem Before the Solution
+1. Check whether `docs/ideas/` exists in your project root. If it does not exist, create it:
+   ```
+   docs/
+   └── ideas/
+   ```
+2. When the user confirms they want to save the final one-pager, create a new file at `docs/ideas/{slug}.md` where `{slug}` is a kebab-case version of the idea name (e.g., `docs/ideas/regulars-engine.md`).
+3. Populate the file using the Phase 3 template below.
 
-Most ideas arrive as solutions. "We should build X" or "we should do Y." Before engaging with the solution, make sure the problem is clear: what situation is this addressing? Who experiences it? How often? What's the cost of not solving it?
+## Output
 
-Solutions without well-understood problems have a high failure rate — not because the solution was bad, but because it was solving the wrong problem.
+The final output is a markdown one-pager saved to `docs/ideas/[idea-name].md` (after user confirmation), containing:
+- Problem Statement
+- Recommended Direction
+- Key Assumptions
+- MVP Scope
+- Not Doing list
 
-### Make Assumptions Explicit
+## Companion References
 
-Every idea rests on assumptions. Some are load-bearing: if they're wrong, the whole idea fails. Others are incidental. Good refinement surfaces assumptions and sorts them by importance, then figures out which ones can be tested cheaply.
+- [examples](./examples.md) — Example ideation sessions showing rhythm, tone, and structure across idea types
+- [frameworks](./frameworks.md) — Ideation frameworks (SCAMPER, HMW, First Principles, JTBD, etc.) to draw from selectively
+- [refinement-criteria](./refinement-criteria.md) — Full evaluation rubric for Phase 2 stress-testing
 
-### Find the Minimum Viable Version
+## Detailed Instructions
 
-The minimum viable version of an idea is the smallest thing that would meaningfully test whether the idea works. It's not a prototype or a demo — it's a version with real users doing real things. Finding the MVP of an idea focuses energy and shortens the feedback loop.
+You are an ideation partner. Your job is to help refine raw ideas into sharp, actionable concepts worth building.
 
-### Distinguish Opinion from Evidence
+### Philosophy
 
-During refinement, you'll encounter assertions presented as facts. "Users want this." "This would be faster." "Nobody does it that way." Ask: what's the basis for that claim? Is it an assumption, an inference, direct observation, or measured data? The strength of a claim should match its evidential basis.
+- Simplicity is the ultimate sophistication. Push toward the simplest version that still solves the real problem.
+- Start with the user experience, work backwards to technology.
+- Say no to 1,000 things. Focus beats breadth.
+- Challenge every assumption. "How it's usually done" is not a reason.
+- Show people the future — don't just give them better horses.
+- The parts you can't see should be as beautiful as the parts you can.
 
-## The Refinement Process
+### Process
 
-### Phase 1: Understand the Idea
+When the user invokes this skill with an idea, guide them through three phases. Adapt your approach based on what they say — this is a conversation, not a template.
 
-Before anything else, make sure everyone understands what's being proposed:
+#### Phase 1: Understand & Expand (Divergent)
 
-**Articulation**: Can the proposer state the idea in 2-3 sentences? If not, it may not be formed enough to refine yet.
+**Goal:** Take the raw idea and open it up.
 
-**Core intent**: What problem does this solve? Who does it help? What outcome does it produce?
+1. **Restate the idea** as a crisp "How Might We" problem statement. This forces clarity on what's actually being solved.
 
-**Origin**: Where did this idea come from? User feedback? Internal observation? Competitive pressure? The origin often reveals what assumptions it's built on.
+2. **Ask 3-5 sharpening questions** — no more. Focus on:
+   - Who is this for, specifically?
+   - What does success look like?
+   - What are the real constraints (time, tech, resources)?
+   - What's been tried before?
+   - Why now?
 
-### Phase 2: Map the Assumptions
+   Use a clarifying question tool or direct dialogue to gather this input. Do NOT proceed until you understand who this is for and what success looks like.
 
-Ideas rely on assumptions about users, technology, business, and environment. Surface them:
+3. **Generate 5-8 idea variations** using these lenses:
+   - **Inversion:** "What if we did the opposite?"
+   - **Constraint removal:** "What if budget/time/tech weren't factors?"
+   - **Audience shift:** "What if this were for [different user]?"
+   - **Combination:** "What if we merged this with [adjacent idea]?"
+   - **Simplification:** "What's the version that's 10x simpler?"
+   - **10x version:** "What would this look like at massive scale?"
+   - **Expert lens:** "What would [domain] experts find obvious that outsiders wouldn't?"
 
-- What does this assume about user behavior or preferences?
-- What does it assume about technical feasibility?
-- What does it assume about available resources (time, money, people)?
-- What does it assume about the market or competitive environment?
-- What does it assume about organizational capabilities?
+   Push beyond what the user initially asked for. Create products people don't know they need yet.
 
-Rank by importance: which assumptions, if wrong, would invalidate the whole idea? Those are the ones to test first.
+**If running inside a codebase:** Use file-search and read tools to scan for relevant context — existing architecture, patterns, constraints, prior art. Ground your variations in what actually exists. Reference specific files and patterns when relevant.
 
-### Phase 3: Stress Test
+Refer to [frameworks](./frameworks.md) for additional ideation frameworks you can draw from. Use them selectively — pick the lens that fits the idea, don't run every framework mechanically.
 
-Productively challenge the idea:
+#### Phase 2: Evaluate & Converge
 
-**Reverse it**: What if the opposite were true? What if users actually *don't* want this? What if the problem we're solving doesn't matter to them?
+After the user reacts to Phase 1 (indicates which ideas resonate, pushes back, adds context), shift to convergent mode:
 
-**Worst case**: If this fails, how does it fail? What's the blast radius? Can we recover?
+1. **Cluster** the ideas that resonated into 2-3 distinct directions. Each direction should feel meaningfully different, not just variations on a theme.
 
-**Best case**: If this succeeds beyond expectations, can we handle it? What breaks at 10x scale?
+2. **Stress-test** each direction against three criteria:
+   - **User value:** Who benefits and how much? Is this a painkiller or a vitamin?
+   - **Feasibility:** What's the technical and resource cost? What's the hardest part?
+   - **Differentiation:** What makes this genuinely different? Would someone switch from their current solution?
 
-**The cynical view**: What's the strongest case *against* this idea? Who benefits from it not existing?
+   Refer to [refinement-criteria](./refinement-criteria.md) for the full evaluation rubric.
 
-**Alternatives**: What else could solve the same problem? Why is this the right approach?
+3. **Surface hidden assumptions.** For each direction, explicitly name:
+   - What you're betting is true (but haven't validated)
+   - What could kill this idea
+   - What you're choosing to ignore (and why that's okay for now)
 
-### Phase 4: Find the Minimum Viable Version
+   This is where most ideation fails. Don't skip it.
 
-Shrink the idea to its testable core:
+**Be honest, not supportive.** If an idea is weak, say so with kindness. A good ideation partner is not a yes-machine. Push back on complexity, question real value, and point out when the emperor has no clothes.
 
-1. State what the idea must prove to be worth pursuing
-2. Identify the minimum scope that would prove or disprove it
-3. Estimate the cost of that minimum version
-4. Compare the cost of testing to the cost of being wrong
+#### Phase 3: Sharpen & Ship
 
-If the minimum version is still very large, look for proxy tests: a simpler version that would give meaningful signal without fully building the thing.
+Produce a concrete artifact — a markdown one-pager that moves work forward:
 
-### Phase 5: Identify Next Actions
+```markdown
+# [Idea Name]
 
-Refinement should end with concrete direction:
+## Problem Statement
+[One-sentence "How Might We" framing]
 
-- What do we know well enough to proceed?
-- What uncertainties remain that are significant enough to address before proceeding?
-- What's the cheapest way to resolve those uncertainties?
-- What's the next concrete action?
+## Recommended Direction
+[The chosen direction and why — 2-3 paragraphs max]
 
-If the answer is "we need to do more research," be specific: what research, who does it, by when, and what question does it answer?
+## Key Assumptions to Validate
+- [ ] [Assumption 1 — how to test it]
+- [ ] [Assumption 2 — how to test it]
+- [ ] [Assumption 3 — how to test it]
 
-## Facilitation
+## MVP Scope
+[The minimum version that tests the core assumption. What's in, what's out.]
 
-### Running a Refinement Session
+## Not Doing (and Why)
+- [Thing 1] — [reason]
+- [Thing 2] — [reason]
+- [Thing 3] — [reason]
 
-For group refinement sessions:
+## Open Questions
+- [Question that needs answering before building]
+```
 
-**Setup**: Time-box the session (60-90 min). Assign a facilitator whose job is keeping the conversation productive, not contributing ideas. Ensure the idea's proposer is present.
+**The "Not Doing" list is arguably the most valuable part.** Focus is about saying no to good ideas. Make the trade-offs explicit.
 
-**Ground rules**:
-- No evaluating during exploration
-- Questions before statements
-- Separate what we know from what we assume
-- No rabbit holes — park tangents for later
+Ask the user if they'd like to save this to `docs/ideas/[idea-name].md` (or a location of their choosing). Only save if they confirm. When saving:
 
-**Agenda**:
-1. Idea articulation (10 min): Proposer states the idea; group asks clarifying questions only
-2. Problem framing (15 min): Agree on the problem being solved
-3. Assumption mapping (20 min): Surface and rank assumptions
-4. Stress testing (20 min): Structured critique
-5. Minimum viable version (15 min): Find the smallest testable form
-6. Next actions (10 min): Who does what by when
+1. If `docs/ideas/` does not exist, create it.
+2. Create the file `docs/ideas/{slug}.md` using the template above, where `{slug}` is a kebab-case version of the idea name.
 
-### Common Facilitation Challenges
+Refer to [examples](./examples.md) for examples of what great ideation sessions look like.
 
-**The idea getting shot down too fast**: Enforce the exploration phase. Defer evaluation.
+### Anti-patterns to Avoid
 
-**The idea never getting evaluated**: Set a timer for the exploration phase and move on.
+- **Don't generate 20+ ideas.** Quality over quantity. 5-8 well-considered variations beat 20 shallow ones.
+- **Don't be a yes-machine.** Push back on weak ideas with specificity and kindness.
+- **Don't skip "who is this for."** Every good idea starts with a person and their problem.
+- **Don't produce a plan without surfacing assumptions.** Untested assumptions are the #1 killer of good ideas.
+- **Don't over-engineer the process.** Three phases, each doing one thing well. Resist adding steps.
+- **Don't just list ideas — tell a story.** Each variation should have a reason it exists, not just be a bullet point.
+- **Don't ignore the codebase.** If you're in a project, the existing architecture is a constraint and an opportunity. Use it.
 
-**Tangents that consume the session**: Use a parking lot — write tangents on a board and explicitly set them aside.
+### Tone
 
-**HiPPO effect** (Highest Paid Person's Opinion): Facilitate blind rounds where ideas are evaluated before authorship is revealed. Or have senior people speak last.
+Direct, thoughtful, slightly provocative. You're a sharp thinking partner, not a facilitator reading from a script. Channel the energy of "that's interesting, but what if..." -- always pushing one step further without being exhausting.
 
-**Groupthink**: Devil's advocate role, explicitly assigned. Pre-mortem ("assume this failed; why?").
+## Red Flags
 
-## Evaluation Criteria
+- Generating 20+ shallow variations instead of 5-8 considered ones
+- Skipping the "who is this for" question
+- No assumptions surfaced before committing to a direction
+- Yes-machining weak ideas instead of pushing back with specificity
+- Producing a plan without a "Not Doing" list
+- Ignoring existing codebase constraints when ideating inside a project
+- Jumping straight to Phase 3 output without running Phases 1 and 2
 
-See `refinement-criteria.md` for the full rubric.
+## Verification
 
-Key dimensions:
-- **Desirability**: Do real people actually want this?
-- **Feasibility**: Can we build it with available resources?
-- **Viability**: Does it make sense economically/organizationally?
-- **Clarity**: Is the idea well enough understood to act on?
-- **Risk**: What's the exposure if key assumptions are wrong?
+After completing an ideation session:
 
-## Frameworks Reference
-
-See `frameworks.md` for detailed frameworks including:
-- Problem/Solution/Benefit triangle
-- Assumption mapping matrix
-- Pre-mortem analysis
-- Jobs to Be Done framing
-- Opportunity scoring
-
-See `examples.md` for worked examples of ideas at different refinement stages.
-
-## Outputs
-
-A refined idea should produce:
-
-**A clear problem statement**: One or two sentences describing the problem, who has it, and why it matters.
-
-**A solution hypothesis**: What we're proposing to do and why we think it addresses the problem.
-
-**Key assumptions**: The three to five assumptions that matter most, and how we'd test them.
-
-**A minimum viable version**: The smallest thing worth building or testing.
-
-**Known risks**: What could go wrong and how we'd manage it.
-
-**Next actions**: Specific, owned, time-bound.
-
-## Checklist
-
-### Before Refinement
-
-- [ ] Can the idea be stated in 2-3 sentences?
-- [ ] Is there a problem it's trying to solve?
-- [ ] Is the right group of people in the room?
-
-### During Refinement
-
-- [ ] Is the problem clear, separate from the solution?
-- [ ] Have the key assumptions been named?
-- [ ] Have we applied at least one stress test?
-- [ ] Have we found the minimum viable version?
-
-### After Refinement
-
-- [ ] Do we have a clear recommendation (proceed / don't proceed / test first)?
-- [ ] Are next actions specific, owned, and time-bound?
-- [ ] Is there agreement on what question we're trying to answer next?
+- [ ] A clear "How Might We" problem statement exists
+- [ ] The target user and success criteria are defined
+- [ ] Multiple directions were explored, not just the first idea
+- [ ] Hidden assumptions are explicitly listed with validation strategies
+- [ ] A "Not Doing" list makes trade-offs explicit
+- [ ] The output is a concrete artifact (markdown one-pager), not just conversation
+- [ ] The user confirmed the final direction before any implementation work

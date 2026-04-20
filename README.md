@@ -24,7 +24,7 @@ The 21 skills encode the workflows, quality gates, and best practices senior eng
 4. Paste: `https://github.com/Coldaine/agent-skills-vscode`
 5. VS Code clones and installs the plugin. Reload when prompted.
 
-> **Requires:** VS Code 1.99+ and a GitHub Copilot subscription. Enable agent plugins with `"chat.plugins.enabled": true` in your settings if they're not already on.
+> **Requires:** A recent VS Code build with GitHub Copilot (agent plugins are a **Preview** feature — enable with `"chat.plugins.enabled": true` in your settings if not already on).
 
 ### Option B — Local folder (dev/offline)
 
@@ -40,25 +40,21 @@ Clone the repo and register the directory:
 
 Reload the window after adding the setting.
 
-### Option C — Workspace recommendation (share with your team)
+### Option C — Share with your team
 
-Add to `.github/copilot/settings.json` in your repo to recommend the plugin to team members:
+The simplest way to share this with teammates is to have each person run **Option A** with the same URL. For a hands-free workspace-level install, add to your workspace settings:
 
-    ```json
-    {
-      "extraKnownMarketplaces": {
-        "coldaine-plugins": {
-          "source": {
-            "source": "github",
-            "repo": "Coldaine/agent-skills-vscode"
-          }
-        }
-      },
-      "enabledPlugins": {
-        "agent-skills@coldaine-plugins": true
-      }
-    }
-    ```
+```json
+// settings.json (workspace)
+"chat.plugins.enabled": true,
+"chat.pluginLocations": {
+  "/absolute/path/to/cloned/agent-skills-vscode": true
+}
+```
+
+Each team member clones the repo to the same local path. VS Code loads the plugin from disk on window open.
+
+> For a fully self-hosted discoverable marketplace, create a separate `marketplace.json` repo that lists this plugin and point `chat.plugins.marketplaces` at it.
 
 ### After install — what you get
 
